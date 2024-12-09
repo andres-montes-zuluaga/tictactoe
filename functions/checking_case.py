@@ -1,4 +1,4 @@
-from create_grid import create_grid
+from functions.create_grid import create_grid
 
 # board = create_grid()
 # choice = [0, 1, "O"]
