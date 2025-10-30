@@ -1,82 +1,63 @@
-"""
-Unit tests for AI players in src.ai.
-
-Tests whether each AI player chooses moves correctly and within game constraints.
-"""
-
 import unittest
 from src.logic import Board
-from src.ai import get_ai_player, RandomAIPlayer, MediumAIPlayer, HardAIPlayer
+from src.ai import get_ai_player
 
 class TestAIPlayers(unittest.TestCase):
-    """Tests for AI player move selection."""
+    """
+    Unittest for AI decision-making (Random, Medium, Hard) via get_ai_player.
+    Ensures AI proposes legal moves and can block/win appropriately.
+    """
 
     def setUp(self):
-        """Creates a fresh board before each test."""
-        self.board = Board()
-        self.board.reset()
+        self.board = Board(size=3)
 
-    def test_random_ai_moves_are_valid(self):
-        """
-        RandomAIPlayer should always pick an empty cell.
-        """
-        ai_player = RandomAIPlayer('X')
-        move = ai_player.choose_move(self.board)
-        self.assertIsNotNone(move)
-        row, col = move
-        self.assertTrue(self.board.is_valid_move(row, col))
+    def test_random_ai_move(self):
+        ai = get_ai_player("easy", mark="O")
+        move = ai.choose_move(self.board)
+        self.assertIn(move, [(row, col) for row in range(3) for col in range(3)])
 
-    def test_medium_ai_blocks_or_wins(self):
-        """
-        MediumAIPlayer should block opponent's win or win if possible.
-        """
-        ai_player = MediumAIPlayer('X')
-        # Scenario: opponent 'O' is about to win, AI should block
+    def test_medium_ai_win(self):
+        # O can win
         self.board.grid = [
-            ['O', 'O', ''],
-            ['X', '', ''],
-            ['', '', '']
+            ["O", "O", ""],
+            ["X", "X", ""],
+            ["", "", ""]
         ]
-        move = ai_player.choose_move(self.board)
-        self.assertEqual(move, (0, 2))  # AI should block opponent at (0,2)
+        ai = get_ai_player("medium", mark="O")
+        move = ai.choose_move(self.board)
+        self.assertEqual(move, (0, 2))
 
-        # Scenario: AI can win
+    def test_medium_ai_block(self):
+        # X can win, O should block
         self.board.grid = [
-            ['X', 'X', ''],
-            ['O', '', 'O'],
-            ['', '', '']
+            ["X", "X", ""],
+            ["O", "", ""],
+            ["", "", ""]
         ]
-        move = ai_player.choose_move(self.board)
-        self.assertEqual(move, (0, 2))  # AI should win at (0,2)
+        ai = get_ai_player("medium", mark="O")
+        move = ai.choose_move(self.board)
+        self.assertEqual(move, (0, 2))
 
-    def test_hard_ai_plays_optimal(self):
-        """
-        HardAIPlayer should always select a winning or drawing move if possible.
-        """
-        ai_player = HardAIPlayer('X')
-        # Set up a winnable board for 'X'
+    def test_hard_ai_minimax(self):
+        # Use minimax: O must pick best move to block win and play optimally
         self.board.grid = [
-            ['X', 'O', 'X'],
-            ['O', 'X', ''],
-            ['', '', 'O']
+            ["X", "X", ""],
+            ["O", "", ""],
+            ["", "", ""]
         ]
-        move = ai_player.choose_move(self.board)
-        # In this classic final, 'X' should win by playing (2,0)
-        self.assertEqual(move, (2, 0))
-        # HardAI should never return an invalid move
-        row, col = move
-        self.assertTrue(self.board.is_valid_move(row, col))
+        ai = get_ai_player("hard", mark="O")
+        move = ai.choose_move(self.board)
+        self.assertEqual(move, (0, 2))
 
-    def test_factory_returns_correct_class(self):
-        """
-        get_ai_player should instantiate correct AI class based on difficulty.
-        """
-        easy_ai = get_ai_player('easy', 'X')
-        self.assertIsInstance(easy_ai, RandomAIPlayer)
-        med_ai = get_ai_player('medium', 'O')
-        self.assertIsInstance(med_ai, MediumAIPlayer)
-        hard_ai = get_ai_player('hard', 'X')
-        self.assertIsInstance(hard_ai, HardAIPlayer)
+    def test_ai_respects_full_board(self):
+        self.board.grid = [
+            ["X", "O", "X"],
+            ["X", "O", "O"],
+            ["O", "X", "X"]
+        ]
+        ai = get_ai_player("easy", mark="O")
+        move = ai.choose_move(self.board)
+        self.assertIsNone(move)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
