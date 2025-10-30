@@ -12,8 +12,7 @@ A modular implementation of the classic game TicTacToe with a graphical user int
 - Modular, well-documented source code for easy extension and educational use.
 
 ## Download & Play
-- Download [tictactoe.exe](https://github.com/andres-montes-zuluaga/tictactoe/blob/main/dist/main.exe) from releases
-- https://github.com/andres-montes-zuluaga/tictactoe/blob/main/dist/main.exe
+- Download [tictactoe.exe](https://github.com/andres-montes-zuluaga/tictactoe/blob/main/dist/main.exe) (Right-click and choose "Save link as..." to download)
 - Double click to play!
 
 ## File Structure
