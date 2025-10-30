@@ -13,25 +13,25 @@ A modular implementation of the classic game TicTacToe with a graphical user int
 
 ## File Structure
 
-tictactoe/
-│
-├── src/
-│ ├── gui.py # GUI layer and event logic (Pygame)
-│ ├── logic.py # Board class: game state and rules
-│ ├── ai.py # AI classes and decision logic
-│ ├── scores.py # Player stats: persistent scoreboard
-│
-├── data/
-│ └── scores.json # Player statistics (auto-managed)
-│
-├── tests/
-│ ├── test_logic.py # Board logic unit tests
-│ ├── test_ai.py # AI move selection tests
-│ ├── test_scores.py # Score persistence and leaderboard tests
-│ └── test_integration.py # Integration test for full game flow
-│
-├── main.py # Main entry point for launching the game
-├── README.md # Project documentation and instructions
+tictactoe/<br>
+│<br>
+├── src/<br>
+│ ├── gui.py # GUI layer and event logic (Pygame)<br>
+│ ├── logic.py # Board class: game state and rules<br>
+│ ├── ai.py # AI classes and decision logic<br>
+│ ├── scores.py # Player stats: persistent scoreboard<br>
+│<br>
+├── data/<br>
+│ └── scores.json # Player statistics (auto-managed)<br>
+│<br>
+├── tests/<br>
+│ ├── test_logic.py # Board logic unit tests<br>
+│ ├── test_ai.py # AI move selection tests<br>
+│ ├── test_scores.py # Score persistence and leaderboard tests<br>
+│ └── test_integration.py # Integration test for full game flow<br>
+│<br>
+├── main.py # Main entry point for launching the game<br>
+├── README.md # Project documentation and instructions<br>
 
 
 ## Requirements
@@ -84,7 +84,15 @@ python -m unittest tests/test_logic.py
 
 ## Screenshots
 
-_Add your own screenshots here showing the GUI, menu, board, and leaderboard!_
+### Menu
+<img width="594" height="628" alt="Menu" src="https://github.com/user-attachments/assets/d6e59d1a-eefc-4e69-aba0-f50c588d3926" />
+
+### Board
+<img width="594" height="622" alt="Board" src="https://github.com/user-attachments/assets/e24affce-186b-4b19-8f62-028466d6a87e" />
+
+### Leaderboard
+<img width="595" height="625" alt="Leaderboard" src="https://github.com/user-attachments/assets/2bc6c2b2-76e8-440e-a185-b93ac732bbd5" />
+
 
 ## Credits
 
