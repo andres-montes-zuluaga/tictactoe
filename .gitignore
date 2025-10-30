@@ -32,7 +32,6 @@ MANIFEST
 *.manifest
 *.spec
 build/
-dist/__pycache__/
 *.pyc
 
 # Installer logs
