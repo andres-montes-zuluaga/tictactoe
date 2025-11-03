@@ -139,12 +139,12 @@ class HardAIPlayer(BaseAIPlayer):
         elif board.is_full():
             return 0
 
-        # Select maximizing or minimizing branch based on whose turn it is
+        # Select maximizing or minimizing branch based on whose turn it is. For AI, we maximize score; for opponent, we minimize.
         if is_maximizing:
-            best_score = float('-inf')
+            best_score = float('-inf') # Maximize for AI. -inf is equal to worse case.
             current_mark = self.mark
         else:
-            best_score = float('inf')
+            best_score = float('inf') # Minimize for opponent. inf is equal to worse case.
             current_mark = 'O' if self.mark == 'X' else 'X'
 
         for row in range(board.size):
