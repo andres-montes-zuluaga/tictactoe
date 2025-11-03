@@ -26,5 +26,19 @@
     "games_won": 0,
     "games_lost": 2,
     "games_drawn": 0
+  },
+  {
+    "name": "Akram",
+    "games_played": 1,
+    "games_won": 0,
+    "games_lost": 0,
+    "games_drawn": 1
+  },
+  {
+    "name": "Bot (Epic!)",
+    "games_played": 1,
+    "games_won": 0,
+    "games_lost": 0,
+    "games_drawn": 1
   }
 ]
