@@ -40,8 +40,10 @@ class GameGUI:
         self.running = True
         self.state = 'menu'
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.SysFont('Arial', 32)
-        self.input_font = pygame.font.SysFont('Arial', 28)
+        self.bg_image = pygame.image.load(os.path.join("assets", "bg.png")).convert()
+        self.bg_image = pygame.transform.scale(self.bg_image, (self.width, self.height))
+        self.font = pygame.font.SysFont('segoeui', 28)
+        self.input_font = pygame.font.SysFont('segoeui', 24)
         self.ticks = 0  # Used for blinking cursors
 
         # Game logic (injected)
@@ -67,7 +69,7 @@ class GameGUI:
         self.machine_name = ""
         self.machine_input_rect = pygame.Rect(220, 220, 240, 42)
         self.machine_active = True
-        self.levels = [("Easy", 300, 'easy'), ("Medium", 360, 'medium'), ("Epic!", 420, 'hard')]
+        self.levels = [("Dummy", 300, 'easy'), ("Normie", 360, 'medium'), ("Epic!", 420, 'hard')]
         self.level_selected = 0
 
         # State for game play
@@ -107,7 +109,8 @@ class GameGUI:
         """
         Draws the main menu and handles button hover states.
         """
-        title_font = pygame.font.SysFont('Arial', 52, bold=True)
+        self.screen.blit(self.bg_image, (0, 0))
+        title_font = pygame.font.SysFont('segoeui', 52, bold=True)
         title_surface = title_font.render("TicTacToe", True, (30, 30, 88))
         self.screen.blit(title_surface, (self.width // 2 - title_surface.get_width() // 2, 80))
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -122,9 +125,9 @@ class GameGUI:
         """
         Draws fields for user name input and navigation buttons. Shows a blinking cursor in the active input box.
         """
-        self.screen.fill((245, 248, 255))
-        font_title = pygame.font.SysFont('Arial', 40, bold=True)
-        font_label = pygame.font.SysFont('Arial', 28)
+        self.screen.blit(self.bg_image, (0, 0))
+        font_title = pygame.font.SysFont('segoeui', 40, bold=True)
+        font_label = pygame.font.SysFont('segoeui', 28)
         title_surface = font_title.render("Enter Player Names", True, (30, 30, 80))
         self.screen.blit(title_surface, (self.width // 2 - title_surface.get_width() // 2, 85))
         for idx, label in enumerate(("Player 1", "Player 2")):
@@ -144,17 +147,18 @@ class GameGUI:
         self.continue_rect = continue_rect
         back_rect = pygame.Rect(40, self.height - 70, 160, 44)
         hovered_back = self.is_mouse_over_rect(mouse_x, mouse_y, back_rect)
-        self.draw_button("Back to Menu", 40 + 80, self.height - 48, hovered=hovered_back, width=160)
+        self.draw_button("Back to Menu", 40 + 80, self.height - 48, hovered=hovered_back, width=195)
         self.back_rect = back_rect
 
     def draw_scores(self):
         """
         Loads score data and draws leaderboard table and return-to-menu button.
         """
-        self.screen.fill((245, 245, 238))
-        header_font = pygame.font.SysFont('Arial', 40, bold=True)
-        font = pygame.font.SysFont('Arial', 22)
-        title = header_font.render("Leaderboard", True, (80, 60, 25))
+        self.screen.blit(self.bg_image, (0, 0))
+        header_font = pygame.font.SysFont('segoeui', 40, bold=True)
+        bold_font = pygame.font.SysFont('segoeui', 22, bold=True)
+        font = pygame.font.SysFont('segoeui', 22)
+        title = header_font.render("Leaderboard", True, (8, 52, 113))
         self.screen.blit(title, (self.width // 2 - title.get_width() // 2, 45))
         path = os.path.join("data", "scores.json")
         try:
@@ -164,36 +168,36 @@ class GameGUI:
             scores = []
         labels = ["Name", "Played", "Won", "Lost", "Drawn"]
         for i, label in enumerate(labels):
-            self.screen.blit(font.render(label, True, (80, 80, 60)), (55 + i * 100, 110))
+            self.screen.blit(bold_font.render(label, True, (8, 52, 113)), (55 + i * 110, 110))
         for idx, player in enumerate(scores):
             y = 140 + idx * 32
-            self.screen.blit(font.render(player["name"], True, (40, 40, 20)), (55, y))
-            self.screen.blit(font.render(str(player["games_played"]), True, (40, 40, 20)), (155, y))
-            self.screen.blit(font.render(str(player["games_won"]), True, (40, 40, 20)), (255, y))
-            self.screen.blit(font.render(str(player["games_lost"]), True, (40, 40, 20)), (355, y))
-            self.screen.blit(font.render(str(player["games_drawn"]), True, (40, 40, 20)), (455, y))
+            self.screen.blit(font.render(player["name"], True, (8, 52, 113)), (55, y))
+            self.screen.blit(font.render(str(player["games_played"]), True, (8, 52, 113)), (200, y))
+            self.screen.blit(font.render(str(player["games_won"]), True, (8, 52, 113)), (300, y))
+            self.screen.blit(font.render(str(player["games_lost"]), True, (8, 52, 113)), (400, y))
+            self.screen.blit(font.render(str(player["games_drawn"]), True, (8, 52, 113)), (500, y))
         mouse_x, mouse_y = pygame.mouse.get_pos()
         back_rect = pygame.Rect(self.width // 2 - 100, self.height - 60, 200, 48)
         hovered_back = self.is_mouse_over_rect(mouse_x, mouse_y, back_rect)
-        self.draw_button("Back to Menu", self.width // 2, self.height - 36, hovered=hovered_back, width=200)
+        self.draw_button("Back to Menu", self.width // 2, self.height - 36, hovered=hovered_back, width=195)
         self.back_rect = back_rect
 
     def draw_vs_machine(self):
         """
         Shows name input and AI level selection, plus navigation buttons. Updates AI on difficulty change.
         """
-        self.screen.fill((244, 249, 252))
-        font_title = pygame.font.SysFont('Arial', 40, bold=True)
-        font_label = pygame.font.SysFont('Arial', 28)
+        self.screen.blit(self.bg_image, (0, 0))
+        font_title = pygame.font.SysFont('segoeui', 40, bold=True)
+        font_label = pygame.font.SysFont('segoeui', 28)
         title_surface = font_title.render("Play vs Machine", True, (30, 30, 75))
         self.screen.blit(title_surface, (self.width // 2 - title_surface.get_width() // 2, 65))
-        self.screen.blit(font_label.render("Your Name:", True, (50, 50, 100)), (110, 228))
+        self.screen.blit(font_label.render("Your Name:", True, (50, 50, 100)), (75, 228))
         pygame.draw.rect(self.screen, (255, 255, 255), self.machine_input_rect, border_radius=8)
         pygame.draw.rect(self.screen, (90, 120, 170), self.machine_input_rect, width=2, border_radius=8)
         name_surface = self.input_font.render(self.machine_name, True, (30, 30, 35))
-        self.screen.blit(name_surface, (self.machine_input_rect.x + 10, self.machine_input_rect.y + 7))
+        self.screen.blit(name_surface, (self.machine_input_rect.x + 15, self.machine_input_rect.y + 7))
         if self.machine_active and (self.ticks // 30) % 2 == 0:
-            cx = self.machine_input_rect.x + 10 + name_surface.get_width() + 2
+            cx = self.machine_input_rect.x + 15 + name_surface.get_width() + 2
             cy = self.machine_input_rect.y + 6
             pygame.draw.line(self.screen, (44, 44, 124), (cx, cy), (cx, cy + 26), 2)
         self.level_rects = []
@@ -207,16 +211,16 @@ class GameGUI:
                 self.width // 2, y,
                 hovered=hovered or selected,
                 width=160,
-                color_active=(139, 220, 160) if selected else None
+                color_active=(250, 234, 239) if selected else None
             )
             self.level_rects.append(rect)
-        back_rect = pygame.Rect(38, self.height - 68, 164, 44)
+        back_rect = pygame.Rect(38, self.height - 68, 194, 44) # usamos 38 para alinear con el input, self.height - 68 alinear con el input, 195 ancho del botón, 44 alto del botón
         hovered_back = self.is_mouse_over_rect(mouse_x, mouse_y, back_rect)
-        self.draw_button("Back to Menu", 38+82, self.height - 46, hovered=hovered_back, width=164)
+        self.draw_button("Back to Menu", 38+97, self.height - 46, hovered=hovered_back, width=194) # 38+82 (38 es ), self.height - 46 (se resta 46 al
         self.back_rect = back_rect
-        continue_rect = pygame.Rect(self.width // 2 - 80, self.height - 100, 160, 44)
+        continue_rect = pygame.Rect(self.width // 2 + 75, self.height - 68, 160, 44)
         hovered_continue = self.is_mouse_over_rect(mouse_x, mouse_y, continue_rect)
-        self.draw_button("Continue", self.width // 2, self.height - 78, hovered=hovered_continue, width=160)
+        self.draw_button("Continue", self.width // 2 + 150, self.height - 46, hovered=hovered_continue, width=160)
         self.continue_rect = continue_rect
 
     def draw_board(self):
@@ -224,18 +228,18 @@ class GameGUI:
         Draws the playable board. Uses Board and AI logic for state and moves.
         Displays victory/draw message and allows returning to the menu.
         """
-        self.screen.fill((240, 245, 255))
-        font_title = pygame.font.SysFont('Arial', 36, bold=True)
+        self.screen.blit(self.bg_image, (0, 0))
+        font_title = pygame.font.SysFont('segoeui', 32, bold=True)
         p1, p2 = self.show_board_names
         title = font_title.render(f"{p1} (X) vs {p2} (O)", True, (54, 43, 99))
-        self.screen.blit(title, (self.width // 2 - title.get_width() // 2, 50))
-        turn_font = pygame.font.SysFont('Arial', 24)
+        self.screen.blit(title, (self.width // 2 - title.get_width() // 2, 30))
+        turn_font = pygame.font.SysFont('segoeui', 24)
         turn_label = turn_font.render(f"Turn: {self.board.turn}", True, (55, 90, 120))
-        self.screen.blit(turn_label, (self.width // 2 - turn_label.get_width() // 2, 100))
+        self.screen.blit(turn_label, (self.width // 2 - turn_label.get_width() // 2, 70))
         if self.board_message:
-            msg_font = pygame.font.SysFont('Arial', 30, bold=True)
+            msg_font = pygame.font.SysFont('segoeui', 30, bold=True)
             msg_surface = msg_font.render(self.board_message, True, (150, 40, 50))
-            self.screen.blit(msg_surface, (self.width // 2 - msg_surface.get_width() // 2, 140))
+            self.screen.blit(msg_surface, (self.width // 2 - msg_surface.get_width() // 2, 100))
         grid_size = min(self.width, self.height) * 0.6
         margin = (self.width - grid_size) // 2
         cell_size = grid_size // self.board.size
@@ -250,7 +254,7 @@ class GameGUI:
                 pygame.draw.rect(self.screen, (60, 80, 135), rect, width=3, border_radius=10)
                 mark = self.board.grid[row][col]
                 if mark:
-                    mark_font = pygame.font.SysFont('Arial', 54, bold=True)
+                    mark_font = pygame.font.SysFont('segoeui', 54, bold=True)
                     color = (30, 140, 70) if mark == "X" else (160, 55, 68)
                     mark_surface = mark_font.render(mark, True, color)
                     self.screen.blit(
@@ -261,7 +265,7 @@ class GameGUI:
         mouse_x, mouse_y = pygame.mouse.get_pos()
         back_rect = pygame.Rect(40, self.height - 70, 160, 44)
         hovered_back = self.is_mouse_over_rect(mouse_x, mouse_y, back_rect)
-        self.draw_button("Back to Menu", 40+80, self.height - 48, hovered=hovered_back, width=160)
+        self.draw_button("Back to Menu", 40+80, self.height - 48, hovered=hovered_back, width=195)
         self.back_rect = back_rect
 
     ### BUTTON, CURSOR AND EVENT HELPERS ###
@@ -272,7 +276,7 @@ class GameGUI:
         """
         rect_width, rect_height = width, 54
         button_rect = pygame.Rect(center_x - rect_width // 2, center_y - rect_height // 2, rect_width, rect_height)
-        font = pygame.font.SysFont('Arial', 32)
+        font = pygame.font.SysFont('segoeui', 32)
         text_surface = font.render(text, True, (20, 20, 40))
         if hovered:
             color_fill = color_active if color_active else (140, 170, 255)

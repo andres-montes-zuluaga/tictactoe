@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "name": "Andr\u00e9s",
+    "games_played": 8,
+    "games_won": 7,
+    "games_lost": 0,
+    "games_drawn": 1
+  },
+  {
+    "name": "Bot (Easy)",
+    "games_played": 7,
+    "games_won": 0,
+    "games_lost": 6,
+    "games_drawn": 1
+  },
+  {
+    "name": "Clarisse",
+    "games_played": 3,
+    "games_won": 2,
+    "games_lost": 1,
+    "games_drawn": 0
+  },
+  {
+    "name": "Bot (Dummy)",
+    "games_played": 2,
+    "games_won": 0,
+    "games_lost": 2,
+    "games_drawn": 0
+  }
+]
