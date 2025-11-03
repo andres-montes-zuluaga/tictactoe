@@ -12,7 +12,7 @@ A modular implementation of the classic game TicTacToe with a graphical user int
 - Modular, well-documented source code for easy extension and educational use.
 
 ## Download & Play
-- Download [tictactoe.exe](https://github.com/andres-montes-zuluaga/tictactoe/blob/main/dist/main.exe) (Right-click and choose "Save link as..." to download)
+- Download the compressed file [tictactoe.rar](dist/TicTacToe.rar) (Right-click and choose "Save link as..." to download)
 - Double click to play!
 
 ## File Structure
@@ -23,10 +23,13 @@ tictactoe/<br>
 │ ├── gui.py # GUI layer and event logic (Pygame)<br>
 │ ├── logic.py # Board class: game state and rules<br>
 │ ├── ai.py # AI classes and decision logic<br>
-│ ├── scores.py # Player stats: persistent scoreboard<br>
+│ ├── scores.py # Persistent player stats and leaderboard<br>
 │<br>
 ├── data/<br>
 │ └── scores.json # Player statistics (auto-managed)<br>
+│<br>
+├── assets/<br>
+│ └── bg.png # Background image<br>
 │<br>
 ├── tests/<br>
 │ ├── test_logic.py # Board logic unit tests<br>
@@ -71,8 +74,6 @@ From your project root, run:
 
 python -m unittest discover tests
 
-text
-
 Or run individual files (e.g.:)
 
 python -m unittest tests/test_logic.py
@@ -89,13 +90,14 @@ python -m unittest tests/test_logic.py
 ## Screenshots
 
 ### Menu
-<img width="594" height="628" alt="Menu" src="https://github.com/user-attachments/assets/d6e59d1a-eefc-4e69-aba0-f50c588d3926" />
+<img width="598" height="629" alt="Menu" src="https://github.com/user-attachments/assets/61bbd154-c09a-488b-ab25-d2a3930614f8" />
 
 ### Board
-<img width="594" height="622" alt="Board" src="https://github.com/user-attachments/assets/e24affce-186b-4b19-8f62-028466d6a87e" />
+<img width="597" height="628" alt="Board" src="https://github.com/user-attachments/assets/859126df-e459-4fe9-a611-8ba9ecbde793" />
 
 ### Leaderboard
-<img width="595" height="625" alt="Leaderboard" src="https://github.com/user-attachments/assets/2bc6c2b2-76e8-440e-a185-b93ac732bbd5" />
+<img width="599" height="629" alt="Leaderboard" src="https://github.com/user-attachments/assets/d34d0b55-348b-4cc7-ab52-045e76420550" />
+
 
 
 ## Credits
