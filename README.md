@@ -39,7 +39,7 @@ tictactoe/<br>
 │<br>
 ├── main.py # Main entry point for launching the game<br>
 ├── README.md # Project documentation and instructions<br>
-
+├── requirements.txt # Project virtual environment<br>
 
 ## Requirements
 
